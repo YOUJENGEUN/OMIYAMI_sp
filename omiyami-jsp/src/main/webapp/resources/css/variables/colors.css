@@ -1,0 +1,37 @@
+:root {
+  /*    */
+  --white: #ffffff;
+  --truegray50: #fafafa;
+  --truegray800: #262626;
+  --gray100: #f9fafb;
+  --gray200: #f3f4f6;
+  --gray300: #e5e7eb;
+  --gray400: #d1d5db;
+  --gray500: #9ca3af;
+  --gray600: #6b7280;
+  --gray700: #4b5563;
+  --gray800: #374151;
+  --gray850: #1f2937;
+  --gray900: #111827;
+  --black: #000000;
+
+  --rose300: #d39b9c;
+
+  /* error */
+  --error: #e11d48;
+
+  /* success */
+  --success: #a3e635;
+
+  /* main-admin */
+
+  --bluegray50: #f8fafc;
+  --bluegray100: #f1f5f9;
+  --bluegray200: #e2e8f0;
+  --bluegray300: #cbd5e1;
+  --bluegray400: #94a3b8;
+  --bluegray500: #64748b;
+  --bluegray900: #0f172a;
+  --indigo50: #eff6ff;
+  --indigo100: #dbeafe;
+}

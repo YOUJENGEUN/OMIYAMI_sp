@@ -1,0 +1,154 @@
+:root {
+  --size100: 10px;
+  --size200: 12px;
+  --size300: 14px;
+  --size400: 15px;
+  --size500: 16px;
+  --size520: 18px;
+  --size550: 20px;
+  --size600: 24px;
+  --size700: 30px;
+  --size800: 32px;
+  --size900: 34px;
+}
+
+/*kr */
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* jp */
+
+@font-face {
+  font-family: "Pretendardjp";
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/fonts/PretendardJP-Regular.woff) format("woff");
+}
+
+/* font-kr */
+
+.kr-200 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.kr-300 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kr-400 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kr-500 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.kr-600 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.kr-700 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.kr-800 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kr-900 {
+  font-family: "Pretendard-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* font-jp */
+.jp-100 {
+  font-family: "PretendardJP-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.jp-200 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.jp-300 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.jp-400 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.jp-500 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.jp-600 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.jp-700 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.jp-800 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.jp-900 {
+  font-family: "Pretendardjp-Regular", "sans-serif";
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}

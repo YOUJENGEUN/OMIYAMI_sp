@@ -1,0 +1,257 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div,
+p,
+span {
+  overflow-wrap: break-word;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Pretendard-Regular", "Pretendardjp", "satoshi", sans-serif;
+  font-size: var(--size400);
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+.logo-img {
+  margin: 10px;
+}
+
+.nav-li {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-link {
+  color: var(--gray600);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--gray600);
+}
+
+.searchform {
+  display: block;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--size500);
+  width: 500px !important;
+  background-image: url(/resources/img/icon/magnifying-glass-solid.svg);
+  background-size: 17px; 
+  background-position: 465px center;
+  background-repeat: no-repeat;
+  background-color: var(--gray100) !important;
+  border-radius: var(--round800) !important;
+  border: 1px, solid, var(--gray400) !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: 0px 1px 4px rgba(209, 213, 219, 0.6);
+}
+
+.form-control:focus {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  outline: 0;
+}
+
+.searchform.has-text {
+  background-image: none; /* 글자가 있을 때 배경 이미지 제거 */
+}
+
+[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  background-color: #a26465;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+  background-size: 20px 20px;
+  height: 20px;
+  width: 20px;
+  background-image: none;
+}
+
+.menu-font {
+  font-size: var(--size520);
+  color: var(--truegray50) !important;
+  font-weight: bolder;
+}
+
+.menu-font:hover {
+  text-decoration: none;
+  color: var(--truegray50);
+}
+
+.menu {
+  height: 60px;
+  background-color: #a26465;
+  opacity: 0.8;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 15px;
+  height: 55px;
+  color: var(--truegray50) !important;
+}
+
+.card-section {
+  margin-bottom: 100px;
+}
+
+.card-wrapper,
+.product-wrapper {
+  width: 900px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.signwel-wrapper,
+.customer-wrapper,
+.mypage-wrapper {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.section-title {
+  margin: 50px 0;
+}
+
+
+.pr-list{
+display: flex;
+flex-wrap: wrap;
+}
+
+.img-card {
+  width: 200px !important;
+  height: 200px !important;
+}
+
+.card-list {
+  width: 200px;
+  height: 300px;
+  margin: 20px;
+}
+
+.card-main {
+  padding: 5px 40px;
+}
+
+.card-body {
+  padding: 15px 0px;
+  text-align: left;
+  flex: 1 1 auto;
+  color: var(--gray900);
+}
+
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10001;
+  background: #fff;
+  transition: 0.5s ease;
+}
+
+.loaded {
+  display: none;
+}
+
+#loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeout 5s;
+  -webkit-animation: fadeout 3s;
+  z-index: 2;
+  background: #fff;
+  height: 100%;
+}
+
+.loader-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeout 5s;
+  -webkit-animation: fadeout 3s;
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.pagination {
+  --bs-pagination-padding-x: 0.75rem;
+  --bs-pagination-padding-y: 0.375rem;
+  --bs-pagination-font-size: 1rem;
+  --bs-pagination-color: var(--gray700);
+  --bs-pagination-hover-color: var(--gray800);
+  font-weight: 400;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  justify-content: center;
+}
+
+.scroll-top {
+  bottom: 50px;
+  right: 50px;
+  position: fixed;
+  z-index: 100;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-top .fa-plane-up {
+  display: none;
+}
+
+.scroll-top:hover .fa-plane-up {
+  display: block;
+}
+
+.scroll-top:hover .fa-cloud {
+  display: none;
+}
+
+.scroll-top.on {
+  display: block;
+}
+
+.scroll-top {
+  display: none;
+}

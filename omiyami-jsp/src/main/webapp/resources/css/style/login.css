@@ -1,0 +1,66 @@
+.signup-wrapper,
+.login-wrapper {
+  width: 900px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.table-body {
+  margin: 0 auto;
+}
+
+.logo-img-center {
+  width: 130px;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+.form-signin {
+  margin: 0 auto;
+  font-size: var(--size400);
+}
+
+.find-text {
+  margin-top: 150px;
+}
+
+.form-control-add {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--size500);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gray500);
+}
+
+.form-control-id {
+  width: 65%;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--size500);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gray500);
+}
