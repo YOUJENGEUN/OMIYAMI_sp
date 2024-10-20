@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +44,6 @@
   <!-- header include -->
   <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-  <!-- Shop Product Start -->
 
   <div class="card-wrapper" style="margin-top: 50px">
     <div class="text-center" style="font-weight: 600; font-size: 30px; color: var(--gray800)">
@@ -76,22 +76,22 @@
       </div>
     </div>
 
+	<!-- 상품리스트 -->
     <div class="pr-list" style="align-items: center; justify-content: center">
 
       <c:forEach var="product" items="${products}">
-	          <div class="card-list">
-	            <!-- 이미지 없으면 default.jpg 불러옴 -->
-	            <a href="/product/${product.product_id}">
-	            	<img src="${product.img_url != null ? product.img_url : '/resources/img/product/default.jpg'}" class="img-card" alt="${product.product_name}" />
-	            </a>
-	            <div class="card-body">
-	              <div class="card-title kr-700" style="font-size: var(--size200)">
-	              		${product.brand_name}
-	              </div>
-	              <div class="kr-900" style="font-size: var(--size500)">
-	                	${product.product_name}
-	              </div>
-	              <div class="kr-800" style="font-size: var(--size300)">
+		<div class="card-list">
+            <a href="/product/${product.product_id}">
+            	<img src="${product.img_url != null ? product.img_url : '/resources/img/product/default.jpg'}" class="img-card" alt="${product.product_name}" />
+            </a>
+			<div class="card-body">
+				<div class="card-title kr-700" style="font-size: var(--size200)">
+						${product.brand_name}
+				</div>
+				<div class="kr-900" style="font-size: var(--size500)">
+		            	${product.product_name}
+				</div>
+				<div class="kr-800" style="font-size: var(--size300)">
 					<c:choose>
 						<%-- stock이 0일때 --%>
 						<c:when test="${product.stock == 0}">
@@ -105,40 +105,50 @@
 							<fmt:formatNumber value="${product.price}" type="number" groupingUsed="true" />
 						</c:otherwise>
 					</c:choose>
-					</div>
-	            </div>
-	          </div>
-			</c:forEach>
-
+				</div>
+			</div>
+		</div>
+      </c:forEach>
+	  <!-- 리스트 마지막줄 정렬 -->
+	  <c:set var="totalProducts" value="${fn:length(products)}" />
+	  <c:set var="emptyCardsCount" value="${3 - (totalProducts % 3)}" />
+	  <c:if test="${emptyCardsCount < 3}">
+	    <c:forEach begin="1" end="${emptyCardsCount}">
+	      <div class="card-list empty-card"></div>
+	    </c:forEach>
+	  </c:if>
+	<!-- pr-list END -->
+	
     </div>
   </div>
-	<nav aria-label="Page navigation example " style="margin-bottom: 150px">
-		<ul class="pagination">
-			<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-				<a class="page-link" href="?category=${currentCategory}&sortOption=${currentSortOption}&page=${currentPage - 1}">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			
-			<c:forEach begin="1" end="${totalPages}" var="i">
-	            <li class="page-item ${i == currentPage ? 'active' : ''}">
-	                <a class="page-link" href="?category=${currentCategory}&sortOption=${currentSortOption}&page=${i}">${i}</a>
-	            </li>
-        	</c:forEach>
-			
-			<li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
-	            <a class="page-link" href="?category=${currentCategory}&sortOption=${currentSortOption}&page=${currentPage + 1}">
-	                <span aria-hidden="true">&raquo;</span>
-	            </a>
-        	</li>
-		</ul>
-	</nav>
-
-	<!-- Shop Product End -->
+  <!-- card-wrapper END -->
+  
+  <!-- pagination -->
+  <nav aria-label="Page navigation example " style="margin-bottom: 150px">
+	<ul class="pagination">
+		<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+			<a class="page-link" href="?category=${currentCategory}&sortOption=${currentSortOption}&page=${currentPage - 1}">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		
+		<c:forEach begin="1" end="${totalPages}" var="i">
+            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                <a class="page-link" href="?category=${currentCategory}&sortOption=${currentSortOption}&page=${i}">${i}</a>
+            </li>
+       	</c:forEach>
+		
+		<li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="?category=${currentCategory}&sortOption=${currentSortOption}&page=${currentPage + 1}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+       	</li>
+	</ul>
+  </nav>
+  <!-- pagination End -->
 
   <!-- footer include-->
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+  <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
-
 </html>

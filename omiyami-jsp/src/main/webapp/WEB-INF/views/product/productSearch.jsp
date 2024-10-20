@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,9 +42,8 @@
   </div>
 
   <!-- header include -->
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
-  <!-- Shop Product Start -->
+  <%@ include file="/WEB-INF/views/common/header.jsp" %>
+  
 
   <div class="card-wrapper" style="margin-top: 50px">
     <div class="text-center" style="font-weight: 600; font-size: 30px; color: var(--gray800)">
@@ -55,7 +55,6 @@
  		<c:if test="${not empty products}">
     		<c:forEach var="product" items="${products}">
 	          <div class="card-list">
-	            <!-- 이미지 없으면 default.jpg 불러옴 -->
 	            <a href="/product/${product.product_id}">
 	            	<img src="${product.img_url != null ? product.img_url : '/resources/img/product/default.jpg'}" class="img-card" alt="${product.product_name}" />
 	            </a>
@@ -80,18 +79,28 @@
 							<fmt:formatNumber value="${product.price}" type="number" groupingUsed="true" />
 						</c:otherwise>
 					</c:choose>
-					</div>
+	              </div>
 	            </div>
 	          </div>
 			</c:forEach>
-			</c:if>
-			<c:if test="${empty products}">
+				  <!-- 리스트 마지막줄 정렬 -->
+			  <c:set var="totalProducts" value="${fn:length(products)}" />
+			  <c:set var="emptyCardsCount" value="${3 - (totalProducts % 3)}" />
+			  <c:if test="${emptyCardsCount < 3}">
+			    <c:forEach begin="1" end="${emptyCardsCount}">
+			      <div class="card-list empty-card"></div>
+			    </c:forEach>
+			  </c:if>
+ 		</c:if>
+ 		<c:if test="${empty products}">
 		    <div class="text-center mt-4" style="margin-bottom: 200px; font-size: 20px; color: var(--gray800)">
    				  검색 결과가 없습니다
     		</div>
 		</c:if>
     </div>
   </div>
+  
+  <!-- pagination -->
   <c:if test="${not empty products}">
 	<nav aria-label="Page navigation example " style="margin-bottom: 150px">
 		<ul class="pagination">
@@ -114,13 +123,11 @@
         	</li>
 		</ul>
 	</nav>
-	</c:if>
-	
-		
-	<!-- Shop Product End -->
+  </c:if>
+  <!-- pagination End -->
 
   <!-- footer include-->
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+  <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
 
