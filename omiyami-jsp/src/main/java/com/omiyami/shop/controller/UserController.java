@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.omiyami.shop.cart.CartService;
 import com.omiyami.shop.user.UserService;
 import com.omiyami.shop.user.UserVO;
 
@@ -19,6 +20,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CartService cartService;
 	
 	@RequestMapping(value ="/login", method = RequestMethod.GET)
 	public String showLogin() {
@@ -35,7 +39,18 @@ public class UserController {
 		if(userVO != null) {
 			session.setAttribute("userVO", userVO);
 			
+			// 장바구니에 임시로 저장된 상품 정보가 있는지 확인
+	        Integer tempProductId = (Integer) session.getAttribute("temp_product_id");
+	        Integer tempQuantity = (Integer) session.getAttribute("temp_quantity");
+
+	        // 임시 데이터가 있으면 장바구니에 추가
+	        if (tempProductId != null && tempQuantity != null) {
+	            cartService.addToCart(userVO.getUser_id(), tempProductId, tempQuantity);
+	            session.removeAttribute("temp_product_id");
+	            session.removeAttribute("temp_quantity");
+	        }
 			
+			//필요 경로로 리다이렉트 (mypage, cart에서 redirectUrl연결중)
 			String redirectUrl = (String)session.getAttribute("redirectUrl");
 			
 			if(redirectUrl != null) {

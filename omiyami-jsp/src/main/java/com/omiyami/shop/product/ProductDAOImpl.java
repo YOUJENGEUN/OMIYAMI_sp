@@ -1,4 +1,4 @@
-package com.omiyami.shop.product.impl;
+package com.omiyami.shop.product;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,8 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.omiyami.shop.product.ProductVO;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -84,8 +82,13 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductVO> getRecommneds(int product_id) {
-		return sqlSession.selectList("ProductMapper.getRecommends", product_id);
+	public List<ProductVO> getRecommendsByCategory(int product_id) {
+		return sqlSession.selectList("ProductMapper.getRecommendsByCategory", product_id);
+	}
+
+	@Override
+	public List<ProductVO> getRecommendsForCart() {
+		return sqlSession.selectList("ProductMapper.getRecommendsForCart");
 	}
 
 

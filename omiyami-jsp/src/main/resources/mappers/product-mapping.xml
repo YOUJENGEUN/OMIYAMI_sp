@@ -5,6 +5,26 @@
 
 <mapper namespace="ProductMapper">
 
+	<!-- 헤더 검색창 검색결과 -->
+	<select id="getSearchResult" resultType="product">
+		SELECT p.product_id,
+		p.product_name, p.brand_name, p.price, p.stock, p.status,
+		(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1)
+		AS img_url
+		FROM PRODUCT p
+		WHERE p.product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		ORDER BY p.product_id DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<!-- 헤더 검색창 검색상품수 -->
+	<select id="getSearchResultCount" resultType="int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		WHERE product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+	</select>
+
+
 	<!-- 메인페이지 NEW -->
 	<select id="getMainNewProducts" resultType="product">
 		SELECT p.product_id,
@@ -24,29 +44,12 @@
 			COUNT(pc.product_id) AS click_count
 		FROM PRODUCT p
 		LEFT JOIN PRODUCT_CLICK pc ON p.product_id = pc.product_id
+		WHERE p.status = '판매중'
 		GROUP BY p.product_id
 		ORDER BY click_count DESC
 		LIMIT 6;
 	</select>
 
-	<!-- 헤더 검색창 검색결과 -->
-	<select id="getSearchResult" resultType="product">
-		SELECT p.product_id,
-		p.product_name, p.brand_name, p.price, p.stock, p.status,
-		(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1)
-		AS img_url
-		FROM PRODUCT p
-		WHERE p.product_name LIKE CONCAT('%', #{searchKeyword}, '%')
-		ORDER BY p.product_id DESC
-		LIMIT #{limit} OFFSET #{offset}
-	</select>
-
-	<!-- 헤더 검색창 검색상품수 -->
-	<select id="getSearchResultCount" resultType="int">
-		SELECT COUNT(*)
-		FROM PRODUCT
-		WHERE product_name LIKE CONCAT('%', #{searchKeyword}, '%')
-	</select>
 
 	<!-- 상품리스트 페이징처리 -->
 	<select id="getProductsCount" resultType="int">
@@ -99,37 +102,52 @@
 	</select>
 
 
-	<!-- product, product_img 데이터 불러옴 -->
-	<!-- 상세페이지 -->
+	<!-- 리스트에서 클릭하면 클릭수 증가 -->
+	<insert id="insertProductClickLog" parameterType="int">
+		INSERT INTO PRODUCT_CLICK (product_id)
+		VALUES (#{product_id});
+	</insert>
+	
+	<!-- 상세페이지 상품정보-->
 	<select id="getProductDetailById" parameterType="int"
 		resultType="product">
 		SELECT * FROM product WHERE product_id = #{product_id}
 	</select>
 
+	<!-- 상세페이지 상품이미지-->
 	<select id="getProductImagesById" parameterType="int"
 		resultType="String">
 		SELECT img_url FROM product_img WHERE product_id = #{product_id}
 	</select>
-
-	<!-- 클릭하면 클릭수 증가 -->
-	<insert id="insertProductClickLog" parameterType="int">
-		INSERT INTO PRODUCT_CLICK (product_id)
-		VALUES (#{product_id});
-	</insert>
-
 
 	<!-- 상세페이지 리뷰출력 
 	<select id="getReviewById" resultType="review"> </select>
 	
 	 -->
 
-	<!-- 추천상품 (해당 상품과 동일한 카테고리 상품 인기순으로 출력)-->
-	<select id="getRecommends" resultType="product">
+	<!-- 상세페이지 추천상품 (해당 상품과 동일한 카테고리 상품 인기순으로 출력)-->
+	<select id="getRecommendsByCategory" resultType="product">
+		SELECT p.product_id, p.product_name,
+		       (SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1) AS img_url,
+		       COUNT(pc.product_id) AS click_count
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_CLICK pc ON p.product_id = pc.product_id
+		WHERE p.category = (SELECT category FROM PRODUCT WHERE product_id = #{product_id})
+		  AND p.product_id != #{current_product_id}
+		GROUP BY p.product_id
+		ORDER BY click_count DESC
+		LIMIT 3;
+	</select>
+
+
+	<!-- 장바구니 추천상품 (전체 상품 클릭순)-->
+	<select id="getRecommendsForCart" resultType="product">
 		SELECT p.product_id, p.product_name,
 			(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1) AS img_url,
 			COUNT(pc.product_id) AS click_count
 		FROM PRODUCT p
 		LEFT JOIN PRODUCT_CLICK pc ON p.product_id = pc.product_id
+		WHERE p.status = '판매중'
 		GROUP BY p.product_id
 		ORDER BY click_count DESC
 		LIMIT 3;

@@ -1,12 +1,10 @@
-package com.omiyami.shop.product.impl;
+package com.omiyami.shop.product;
 
 import java.util.List;
 
-import com.omiyami.shop.product.ProductVO;
-
 public interface ProductDAO {
 
-	//header
+	//header 검색
 	List<ProductVO> getSearchResult(String searchKeyword, int limit, int offset);
 	int getSearchResultCount(String searchKeyword);
 	
@@ -22,8 +20,10 @@ public interface ProductDAO {
 	void insertProductClickLog(int product_id);
 	public ProductVO getProductDetailById(int product_id);
 	public List<ProductVO> getProductImagesById(int product_id);
-	public List<ProductVO> getRecommneds(int product_id);
+	public List<ProductVO> getRecommendsByCategory(int product_id);
 	
+	//cart
+	public List<ProductVO> getRecommendsForCart();
 	
 //	
 //	public void insertProduct(ProductVO vo);
