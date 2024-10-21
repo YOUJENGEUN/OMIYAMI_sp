@@ -8,6 +8,7 @@
  	<typeAliases>
 		<typeAlias alias="product" type="com.omiyami.shop.product.ProductVO" />
 		<typeAlias alias="user" type="com.omiyami.shop.user.UserVO" />
+		<typeAlias alias="cart" type="com.omiyami.shop.cart.CartVO" />
 	</typeAliases>
 	
 	

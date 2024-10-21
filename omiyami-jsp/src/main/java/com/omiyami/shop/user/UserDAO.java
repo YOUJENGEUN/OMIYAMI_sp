@@ -1,6 +1,4 @@
-package com.omiyami.shop.user.impl;
-
-import com.omiyami.shop.user.UserVO;
+package com.omiyami.shop.user;
 
 public interface UserDAO {
 
