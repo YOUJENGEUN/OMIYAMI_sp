@@ -5,9 +5,9 @@
 <header>
 	<nav class="navbar navbar-expand-xl">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/main">
+			<a class="navbar-brand" href="/main">
 				<img class="logo-img"
-						src="${pageContext.request.contextPath}/resources/img/logo/logo.png"
+						src="/resources/img/logo/logo.png"
 						alt="OMIYAMI" width="65" height="65" />
 			</a>
 
@@ -17,18 +17,18 @@
 					<c:choose>
 						<c:when test="${empty sessionScope.userVO}">
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/login">로그인</a>
+							<a class="nav-link" href="/login">로그인</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/signup">회원가입 </a>
+							<a class="nav-link" href="/signup">회원가입 </a>
 						</li>
 						</c:when>
 						<c:otherwise>
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/mypage">${sessionScope.userVO.name} 님</a>
+							<a class="nav-link" href="/mypage">${sessionScope.userVO.name} 님</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
+							<a class="nav-link" href="/logout">로그아웃</a>
 						</li>
 						</c:otherwise>
 					</c:choose>
@@ -46,12 +46,12 @@
 				<div class="nav-left">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/mypage">
+							<a class="nav-link" href="/mypage">
 								<i class="fa-solid fa-user" style="font-size: var(--size550)"></i>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/cart">
+							<a class="nav-link" href="/cart/view">
 								<i class="fa-solid fa-cart-shopping" style="font-size: var(--size550)"></i>
 							</a>
 						</li>
@@ -67,31 +67,31 @@
 	<nav class="menu d-flex align-items-center justify-content-center mt-2">
 		<ul class="nav nav-fill w-80 d-flex">
 			<li class="nav-item"><a
-				href="${pageContext.request.contextPath}/productList/1"
+				href="/productList/1"
 				class="menu-font">홋카이도/토호쿠</a></li>
 
 			<li class="nav-item"><a
-				href="${pageContext.request.contextPath}/productList/2"
+				href="/productList/2"
 				class="menu-font">칸토/츄부</a></li>
 
 			<li class="nav-item"><a
-				href="${pageContext.request.contextPath}/productList/3"
+				href="/productList/3"
 				class="menu-font">간사이</a></li>
 
 			<li class="nav-item"><a
-				href="${pageContext.request.contextPath}/productList/4"
+				href="/productList/4"
 				class="menu-font">츄고쿠/시코쿠</a></li>
 
 			<li class="nav-item"><a
-				href="${pageContext.request.contextPath}/productList/5"
+				href="/productList/5"
 				class="menu-font">큐슈/오키나와</a></li>
 
 			<li class="nav-item"><a
-				href="#" class="menu-font">공지사항</a>
+				href="/customerservice/notices" class="menu-font">공지사항</a>
 			</li>
 
 			<li class="nav-item"><a
-				href="#" class="menu-font">1:1</a>
+				href="/customerservice/faqs" class="menu-font">FAQ</a>
 			</li>
 		</ul>
 	</nav>

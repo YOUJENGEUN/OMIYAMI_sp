@@ -58,7 +58,7 @@
           <td width="200px">아이디</td>
           <td width="600px">
             <input type="text" name="username" id="username" class="form-control-add ms-4 mb-3" style="width: 250px"/>
-            <button type="button" class="btn checkId" style="background: #d1d5db50; font-size: var(--size300); margin-left: 3px;">중복확인</button>
+            <button type="button" class="btn checkID" style="background: #d1d5db50; font-size: var(--size300); margin-left: 3px;">중복확인</button>
             <span id="idCheckMessage" class="ms-1"></span>
           </td>
         </tr>
@@ -88,9 +88,26 @@
               class="form-control-add ms-4 mb-3"
               type="text"
               style="width: 250px"
+              name="email"
+             
             />
           </td>
         </tr>
+
+
+<tr>
+          <td>전화번호</td>
+          <td>
+            <input
+              class="form-control-add ms-4 mb-3"
+              type="text"
+              style="width: 250px"
+              name="phone"
+             
+            />
+          </td>
+        </tr>
+
 
         <tr>
           <td>우편번호</td>
@@ -101,6 +118,7 @@
               id="sample6_postcode"
               placeholder="우편번호"
               style="width: 150px"
+              name="post_num"
             />
             <input
               class="btn"
@@ -124,6 +142,7 @@
               class="form-control-add ms-4"
               id="sample6_address"
               style="width: 265px; margin-right: 10px"
+              name="address1"
             />
             <input
               type="text"
@@ -131,6 +150,7 @@
               id="sample6_extraAddress"
               placeholder="(비고)"
               style="width: 120px"
+              name="address2"
             />
             <input
               type="text"
@@ -138,15 +158,18 @@
               id="sample6_detailAddress"
               placeholder="상세주소"
               style="width: 400px"
+              name="address3"
             />
           </td>
         </tr>
       </table>
-	</form>
+	
       <div>
-        <button type="submit" class="login btn-pro mx-auto" >회원가입</button>
-      </div>
-
+        <a href="${pageContext.request.contextPath}/signup">
+             <button type="submit" class="login btn-pro mx-auto" >회원가입</button>
+        </a>
+         </div>
+</form>
       <div class="text-center mb-5 pb-5">
         <p>
         	이미 가입하셨나요?
@@ -163,20 +186,20 @@
 	<script>
 	    $(document).ready(function() {
 	        // 중복확인 버튼 클릭 시 처리
-	        $(".checkId").on("click", function() {
+	        $(".checkID").on("click", function() {
 	            var username = $("#username").val();  // 입력된 username 값 가져오기
 	
 	            if (username.length === 0) {
-	                $("#idCheckMessage").text("아이디를 입력해 주세요").css("color", "red");
+	                $("#idCheckMessage").text("아이디를 입력해 주세요").css("color", "var(--error)");
 	                return;  // 아이디가 입력되지 않았을 때
 	            }
 	
 	            // AJAX 요청 보내기
-	            $.get("/checkId", { username: username }, function(response) {
+	            $.get("/checkID", { username: username }, function(response) {
 	                if (response === "duplicated") {
-	                    $("#idCheckMessage").text("이미 사용 중인 아이디입니다").css("color", "red");
+	                    $("#idCheckMessage").text("이미 사용 중인 아이디입니다").css("color", "var(--error)");
 	                } else {
-	                    $("#idCheckMessage").text("사용 가능한 아이디입니다").css("color", "green");
+	                    $("#idCheckMessage").text("사용 가능한 아이디입니다").css("color", "var(--success)");
 	                }
 	            });
 	        });
@@ -189,9 +212,9 @@
                 var passwordConfirm = $(this).val();
 
                 if (password === passwordConfirm) {
-                    $("#passwordCheckMessage").text("비밀번호가 일치합니다").css("color", "green").removeClass("error").addClass("success");
+                    $("#passwordCheckMessage").text("비밀번호가 일치합니다").css("color", "var(--success)").removeClass("error").addClass("success");
                 } else {
-                    $("#passwordCheckMessage").text("비밀번호가 일치하지 않습니다").css("color", "red").removeClass("success").addClass("error");
+                    $("#passwordCheckMessage").text("비밀번호가 일치하지 않습니다").css("color", "var(--error)").removeClass("success").addClass("error");
                 }
             });
 

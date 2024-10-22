@@ -18,4 +18,21 @@
         WHERE username = #{username}
 	</select>
 	
+	<insert id="signup" parameterType="user">
+		INSERT INTO USER(username, password, name, email, phone, post_num, address, register_date, status,withdraw_date) VALUE(
+		#{username}, #{password}, #{name}, #{email}, #{phone}, #{post_num}, #{address}, now(), '가입' ,now());
+	</insert>
+	
+	<select id="findId" parameterType="user" resultType="String"> 
+		SELECT username FROM user WHERE name = #{name} AND email =#{email} AND phone=#{phone} 
+	</select>
+	
+	<select id="findPw" parameterType="user" resultType="String"> 
+		SELECT username FROM user WHERE username=#{username} AND name=#{name} AND phone=#{phone} AND email=#{email} 
+	</select>
+	
+	<update id="updatePw" parameterType="user">
+		update user set password =#{password} where username=#{username}
+	</update>
+	
 </mapper>

@@ -1,10 +1,8 @@
-package com.omiyami.shop.user.impl;
+package com.omiyami.shop.user;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.omiyami.shop.user.UserVO;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -25,4 +23,26 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectOne("UserMapper.getUserById", username);
 	}
 
+
+	//회원가입	
+	@Override
+	public void signup(UserVO vo) throws Exception{
+		sqlSession.insert("UserMapper.signup",vo);
+	}
+	
+	@Override
+	public String findId(UserVO vo) {
+		return sqlSession.selectOne("UserMapper.findId", vo);
+	}
+	
+	@Override
+	public String findPw(UserVO vo) {
+		return sqlSession.selectOne("UserMapper.findPw", vo);
+	}
+	
+	@Override
+	public void updatePw(UserVO vo) {
+	   sqlSession.update("UserMapper.updatePw", vo);  // 변경된 행 수 반환
+	}
+	
 }

@@ -42,6 +42,13 @@
         <img class="logo-img-center" src="${pageContext.request.contextPath}/resources/img/logo/logo.png" />
       </div>
       
+      <!-- 로그인 메시지 표시 -->
+	    <c:if test="${not empty loginMessage}">
+	        <div style="color: red;">
+	            ${loginMessage}
+	        </div>
+	    </c:if>
+      
       <form action="/login" method="POST">
       <div class="form-signin w-50">
         <div class="my-5 form-floating">
@@ -56,22 +63,14 @@
       </div>
 
       <div>
-        <a href="${pageContext.request.contextPath}/login">
           <button type="submit" class="login btn-pro mx-auto" >로그인 하기</button>
-        </a>
       </div>
       </form>
       <div class="text-center" style="font-weight: 600; margin-bottom: 150px">
         <p>
-          <a href="../signup/signup.html" class="card-link text-reset px-3">
-            회원가입
-          </a>
-          <a href="../find/fidID.html" class="card-link text-reset px-3">
-            아이디찾기
-          </a>
-          <a href="../find/findPW.html" class="card-link text-reset px-3">
-            비밀번호찾기
-          </a>
+          <a href="/signup" class="card-link text-reset px-3">회원가입</a>
+          <a href="/findID" class="card-link text-reset px-3">아이디찾기</a>
+          <a href="/findPW" class="card-link text-reset px-3">비밀번호찾기</a>
         </p>
       </div>
     </main>
@@ -81,8 +80,8 @@
 	
 	
 <script>
-    <c:if test="${not empty loginError}">
-        alert('${loginError}');
+    <c:if test="${not empty ErrorMessage}">
+        alert('${ErrorMessage}');
     </c:if>
 </script>
   </body>
