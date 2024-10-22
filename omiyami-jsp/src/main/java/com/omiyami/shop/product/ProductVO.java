@@ -2,6 +2,8 @@ package com.omiyami.shop.product;
 
 import java.util.List;
 
+import com.omiyami.shop.product.review.ReviewVO;
+
 public class ProductVO {
 
 	private int product_id;
@@ -16,8 +18,11 @@ public class ProductVO {
 	private String category;
 	
 	private int product_click;
-	private String img_url;
-	private List<String> images;//상세페이지용
+	private String img_url;	
+	private List<String> images;//상세페이지이미지
+	
+	//ReviewVO참조-상세페이지리뷰출력용
+	private List<ReviewVO> reviews;
 	
 	public int getProduct_id() {
 		return product_id;
@@ -101,6 +106,12 @@ public class ProductVO {
 	
 	public List<String> getImages() {
 		return images;
+	}
+	public List<ReviewVO> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<ReviewVO> reviews) {
+		this.reviews = reviews;
 	}
 	
 	

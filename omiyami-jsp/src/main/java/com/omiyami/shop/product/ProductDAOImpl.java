@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.omiyami.shop.product.review.ReviewVO;
+
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
@@ -82,6 +84,11 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
+	public List<ReviewVO> getReviewsByProductId(int product_id) {
+		return sqlSession.selectList("ProductMapper.getReviewsByProductId", product_id);
+	}
+	
+	@Override
 	public List<ProductVO> getRecommendsByCategory(int product_id) {
 		return sqlSession.selectList("ProductMapper.getRecommendsByCategory", product_id);
 	}
@@ -90,6 +97,8 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductVO> getRecommendsForCart() {
 		return sqlSession.selectList("ProductMapper.getRecommendsForCart");
 	}
+
+
 
 
 

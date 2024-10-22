@@ -122,10 +122,14 @@
 		SELECT img_url FROM product_img WHERE product_id = #{product_id}
 	</select>
 
-	<!-- 상세페이지 리뷰출력 
-	<select id="getReviewById" resultType="review"> </select>
-	
-	 -->
+	<!-- 상세페이지 리뷰출력 -->
+	<select id="getReviewsByProductId" resultType="review">
+		SELECT r.user_id, u.username, r.product_id, r.status, r.content, r.write_date
+	    FROM review r
+	    JOIN user u ON r.user_id = u.user_id
+	    WHERE r.product_id = #{product_id}
+	</select>
+
 
 	<!-- 상세페이지 추천상품 (해당 상품과 동일한 카테고리 상품 인기순으로 출력)-->
 	<select id="getRecommendsByCategory" resultType="product">
@@ -136,6 +140,7 @@
 		LEFT JOIN PRODUCT_CLICK pc ON p.product_id = pc.product_id
 		WHERE p.category = (SELECT category FROM PRODUCT WHERE product_id = #{product_id})
 		  AND p.product_id != #{current_product_id}
+		  AND p.status = '판매중'
 		GROUP BY p.product_id
 		ORDER BY click_count DESC
 		LIMIT 3;

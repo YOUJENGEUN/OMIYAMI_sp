@@ -2,6 +2,8 @@ package com.omiyami.shop.product;
 
 import java.util.List;
 
+import com.omiyami.shop.product.review.ReviewVO;
+
 public interface ProductService {
 
 	//header 검색
@@ -21,6 +23,7 @@ public interface ProductService {
 	ProductVO getProductDetailById(int product_id);
 	List<ProductVO> getProductImagesById(int product_id);
 	List<ProductVO> getRecommendsByCategory(int product_id);
+	List<ReviewVO> getReviewsByProductId(int product_id);
 	
 	//장바구니추천
 	List<ProductVO> getRecommendsForCart();

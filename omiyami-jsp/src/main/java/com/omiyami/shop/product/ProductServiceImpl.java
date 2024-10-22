@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.omiyami.shop.product.review.ReviewVO;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -63,6 +65,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<ReviewVO> getReviewsByProductId(int product_id) {
+		return productDAO.getReviewsByProductId(product_id);
+	}
+	
+	@Override
 	public List<ProductVO> getRecommendsByCategory(int product_id) {
 		List<ProductVO> recommends = productDAO.getRecommendsByCategory(product_id);
 		return recommends;
@@ -73,6 +80,7 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductVO> recommends = productDAO.getRecommendsForCart();
 		return recommends;
 	}
+
 
 
 

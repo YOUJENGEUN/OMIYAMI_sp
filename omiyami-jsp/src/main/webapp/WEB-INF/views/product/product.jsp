@@ -133,55 +133,36 @@
                 	<img src="${imgUrl}" class="item-img" />
               </div>
           </c:forEach>
-		    <p class="text-box">
+		    <p class="text-box" style="text-align: center;">
 		        <c:out value="${product.content}" escapeXml="false" />
 		    </p>
           </div>
         </div>
         <!-- 리뷰 -->
         <div class="review">
-          <div class="review-title pb-4">리뷰</div>
-          <!--리뷰없을때표시-->
-          <div class="hidden no-review">리뷰가 존재하지 않습니다</div>
-          <!--리뷰있을때불러오기-->
-          <table>
-            <tr>
-              <td class="review-total">만족</td>
-              <td class="review-content">
-                정말 맛있어요! 겉은 바삭하고 속은 부드럽고 달콤하네요. 포장도
-                깔끔해서 선물용으로 딱 좋습니다. 꼭 다시 구매할게요!
-              </td>
-              <td class="review-writer">tlfhdlzhdlqlxh</td>
-              <td class="review-date">2024.09.01</td>
-            </tr>
-            <tr>
-              <td class="review-total">만족</td>
-              <td class="review-content">
-                맛, 포장, 배송 모든 것이 예상 이상으로 좋았습니다. 다음에도
-                이용할게요!
-              </td>
-              <td class="review-writer">tlfhdlzh</td>
-              <td class="review-date">2024.08.17</td>
-            </tr>
-            <tr>
-              <td class="review-total">만족</td>
-              <td class="review-content">
-                맛이 너무 고급스러워서 매일 먹고 싶어요. 포장도 꼼꼼히 해주셔서
-                너무 좋았어요.
-              </td>
-              <td class="review-writer">zhdlqlxh</td>
-              <td class="review-date">2024.08.10</td>
-            </tr>
-            <tr>
-              <td class="review-total">불만족</td>
-              <td class="review-content">
-                배송이 조금 아쉬웠어요. 선물하려고 구매한건데 예상 날짜보다 늦게
-                도착해서 아쉬웠습니다. 맛은 좋았어요.
-              </td>
-              <td class="review-writer">zhdlqlxh</td>
-              <td class="review-date">2024.08.10</td>
-            </tr>
-          </table>
+          	<div class="review-title pb-4">리뷰</div>
+          	<!--리뷰없을때표시-->
+		    <c:if test="${empty reviews}">
+		        <div class="no-review">리뷰가 존재하지 않습니다</div>
+		    </c:if>
+
+		    <!-- 리뷰가 있을 때 표시 -->
+		    <c:if test="${!empty reviews}">
+		        <table>
+		            <c:forEach var="review" items="${reviews}">
+					<tr>
+	                    <td class="review-total">${review.status}</td>
+	                    <td class="review-content">${review.content}</td>
+	                    <td class="review-writer">${review.username}</td>
+	                    <td class="review-date">
+	                    	<fmt:formatDate value="${review.write_date}" pattern="yyyy-MM-dd" />
+						</td>
+					</tr>
+		            </c:forEach>
+		        </table>
+		    </c:if>
+          
+
         </div>
       </div>
       <!-- item-container END -->

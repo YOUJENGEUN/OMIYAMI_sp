@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.omiyami.shop.product.ProductService;
 import com.omiyami.shop.product.ProductVO;
+import com.omiyami.shop.product.review.ReviewVO;
 
 @Controller
 public class ProductController {
@@ -119,10 +120,14 @@ public class ProductController {
         }
         model.addAttribute("product", product);
 
-        // 상품 이미지 목록 가져오기
+        //상품 이미지 목록 가져오기
         List<ProductVO> productImages = productService.getProductImagesById(product_id);
         model.addAttribute("productImages", productImages);
 
+        //리뷰 가져옴
+        List<ReviewVO> reviews = productService.getReviewsByProductId(product_id);
+        model.addAttribute("reviews", reviews);
+        
         //추천상품가져옴
         List<ProductVO> recommendeds = productService.getRecommendsByCategory(product_id);
         model.addAttribute("recommendeds", recommendeds);

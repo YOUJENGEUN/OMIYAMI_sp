@@ -169,7 +169,7 @@
 }
 /* 상세페이지 */
 .item-details {
-  width: 900px;
+  width: 870px;
   margin: 50px auto;
   text-align: center;
 }
@@ -198,8 +198,8 @@
 
 /* 리뷰섹션 */
 .review {
-  width: 900px;
-  margin: 100px auto;
+  width: 870px;
+  margin: 150px auto;
   font-size: var(--size550);
   text-align: center;
 }
@@ -209,11 +209,9 @@
   font-weight: 600;
 }
 
-/*리뷰 있을때 hidden 처리 */
 .no-review {
-  font-weight: 600;
-  margin: 50px auto;
-  display: none;
+  margin: 30px auto;
+  font-size: var(--size400);
 }
 
 .review table {
@@ -229,26 +227,26 @@ td {
 }
 
 .review-total {
-  width: 100px;
+  width: 80px;
   font-size: var(--size300);
   font-weight: 600;
 }
 
 .review-content {
   font-size: var(--size300);
-  width: 730px;
+  width: 520px;
   text-align: left !important;
   word-break: keep-all;
 }
 
 .review-writer {
-  font-size: var(--size300);
-  width: 100px;
+  font-size: var(--size200);
+  width: 120px;
 }
 
 .review-date {
-  font-size: var(--size300);
-  width: 100px;
+  font-size: var(--size200);
+  width: 150px;
   color: var(--gray700);
 }
 
@@ -257,7 +255,7 @@ td {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 1200px;
+  max-width: 870px;
   margin: 100px auto;
 }
 
