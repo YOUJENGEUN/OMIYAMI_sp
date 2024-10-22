@@ -12,7 +12,8 @@
 		(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1)
 		AS img_url
 		FROM PRODUCT p
-		WHERE p.product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		WHERE (p.product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+           OR p.content LIKE CONCAT('%', #{searchKeyword}, '%'))
 		ORDER BY p.product_id DESC
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
@@ -20,8 +21,9 @@
 	<!-- 헤더 검색창 검색상품수 -->
 	<select id="getSearchResultCount" resultType="int">
 		SELECT COUNT(*)
-		FROM PRODUCT
-		WHERE product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+	    FROM PRODUCT
+	    WHERE product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+	    OR content LIKE CONCAT('%', #{searchKeyword}, '%')
 	</select>
 
 

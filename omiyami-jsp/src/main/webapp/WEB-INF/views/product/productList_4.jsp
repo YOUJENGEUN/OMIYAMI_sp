@@ -34,7 +34,7 @@
   <title>OMIYAMI</title>
 </head>
 
-<body style="background-color: var(--trueGray50)">
+<body style="background-color: var(--truegray50)">
   <!-- scroll up  -->
   <div class="scroll-top" id="scrollUp">
     <i class="fa-solid fa-cloud kr-700" style="font-size: var(--size900); color: var(--indigo100)"></i>
@@ -98,7 +98,7 @@
 							<span style="text-decoration: line-through;">
 								<fmt:formatNumber value="${product.price}" type="number" groupingUsed="true" />
 							</span>
-							<span style="color: red; font-weight: bold;">SOLD OUT</span>
+							<span style="color: red; font-weight: bold;">&nbsp;SOLD OUT</span>
 						</c:when>
 						<%-- stock이 0이 아닐때 --%>
 						<c:otherwise>
