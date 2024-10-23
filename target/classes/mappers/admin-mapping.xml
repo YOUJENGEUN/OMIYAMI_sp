@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	<!-- 대시보드 통계 관련 -->
+	<select id="getDashboardSummary" resultType="dashboardSummary">
+		SELECT
+		(SELECT COALESCE(SUM(payment_price), 0)
+		FROM PAYMENT
+		WHERE DATE_FORMAT(payment_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')) as
+		totalSales,
+		(SELECT COUNT(*)
+		FROM `ORDER`
+		WHERE DATE(date) = CURRENT_DATE) as newOrderCount,
+		(SELECT COUNT(*)
+		FROM INQUERY
+		WHERE status = '미답변') as inquiryCount
+	</select>
+
+	<select id="getTotalSales" resultType="int">
+		SELECT COALESCE(SUM(payment_price), 0)
+		FROM PAYMENT
+		WHERE DATE_FORMAT(payment_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+	</select>
+
+	<select id="getNewOrderCount" resultType="int">
+		SELECT COUNT(*)
+		FROM `ORDER`
+		WHERE DATE(date) = CURRENT_DATE
+	</select>
+
+	<select id="getCustomerCount" resultType="int">
+		SELECT COUNT(*)
+		FROM USER
+		WHERE status = '가입'
+	</select>
+
+	<!-- 주문 조회 관련 -->
+	<select id="getRecentOrders" resultType="orderSummary">
+		SELECT
+		o.order_id as orderId,
+		p.product_name as productName,
+		p.brand_name as brandName,
+		op.quantity,
+		o.total_price as price,
+		o.status,
+		pi.img_url as productImage
+		FROM `ORDER` o
+		JOIN ORDER_PRODUCT op ON o.order_id = op.order_id
+		JOIN PRODUCT p ON op.product_id = p.product_id
+		LEFT JOIN PRODUCT_IMG pi ON p.product_id = pi.product_id
+		ORDER BY o.date DESC
+		LIMIT 3
+	</select>
+
+	<select id="getAllOrders" resultType="orderSummary">
+	   SELECT 
+            o.order_id as orderId,
+            o.date as orderDate,
+            o.status,
+            o.total_price as totalAmount,
+            o.receiver as userName,
+            o.receiver_phone as userPhone,
+            o.address as userAddress,
+            p.product_name as productName,
+            p.brand_name as brandName,
+            op.quantity,
+            pi.img_url as productImage
+        FROM `ORDER` o
+        LEFT JOIN ORDER_PRODUCT op ON o.order_id = op.order_id
+        LEFT JOIN PRODUCT p ON op.product_id = p.product_id
+        LEFT JOIN PRODUCT_IMG pi ON p.product_id = pi.product_id
+        ORDER BY o.date DESC
+	</select>
+
+	<select id="getOrderById" resultType="orderSummary">
+		SELECT
+		o.order_id as orderId,
+		p.product_name as productName,
+		p.brand_name as brandName,
+		op.quantity,
+		u.name as userName,
+		u.phone as userPhone,
+		u.address as userAddress,
+		o.status,
+		o.date as orderDate,
+		pi.img_url as productImage,
+		o.total_price as price
+		FROM `ORDER` o
+		JOIN ORDER_PRODUCT op ON o.order_id = op.order_id
+		JOIN PRODUCT p ON op.product_id = p.product_id
+		LEFT JOIN USER u ON o.user_id = u.user_id
+		LEFT JOIN PRODUCT_IMG pi ON p.product_id = pi.product_id
+		WHERE o.order_id = #{value}
+	</select>
+
+	<!-- 주문 상태 관리 -->
+    <update id="updateOrderStatus">
+          UPDATE `ORDER`
+        SET status = #{status}
+        WHERE order_id = #{orderId}
+    </update>
+
+	<!-- 상품 관련 -->
+	<select id="getTopProducts" resultType="product">
+		SELECT
+		p.*,
+		COUNT(pc.product_click_id) as product_click
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_CLICK pc ON p.product_id = pc.product_id
+		GROUP BY p.product_id
+		ORDER BY product_click DESC
+		LIMIT 5
+	</select>
+</mapper>
