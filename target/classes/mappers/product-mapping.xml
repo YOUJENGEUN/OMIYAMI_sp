@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProductMapper">
+
+	<!-- 메인페이지 NEW -->
+	<select id="getMainNewProducts" resultType="product">
+		SELECT p.product_id,
+		p.product_name, p.brand_name, p.price,
+		(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1)
+		AS img_url
+		FROM PRODUCT p
+		WHERE p.status = '판매중'
+		ORDER BY p.product_id DESC
+		LIMIT 6
+	</select>
+
+	<!-- 메인페이지 BEST -->
+	<select id="getMainBestProducts" resultType="product">
+		SELECT p.product_id, p.product_name, p.brand_name, p.price,
+			(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1) AS img_url,
+			COUNT(pc.product_id) AS click_count
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_CLICK pc ON p.product_id = pc.product_id
+		GROUP BY p.product_id
+		ORDER BY click_count DESC
+		LIMIT 6;
+	</select>
+
+	<!-- 헤더 검색창 검색결과 -->
+	<select id="getSearchResult" resultType="product">
+		SELECT p.product_id,
+		p.product_name, p.brand_name, p.price, p.stock, p.status,
+		(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1)
+		AS img_url
+		FROM PRODUCT p
+		WHERE p.product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+		ORDER BY p.product_id DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<!-- 헤더 검색창 검색상품수 -->
+	<select id="getSearchResultCount" resultType="int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		WHERE product_name LIKE CONCAT('%', #{searchKeyword}, '%')
+	</select>
+
+	<!-- 상품리스트 페이징처리 -->
+	<select id="getProductsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		WHERE area = #{area}
+		<if test="categories != null and categories.size() > 0">
+			AND category IN
+			<foreach item="category" index="index"
+				collection="categories" open="(" separator="," close=")">
+				#{category}
+			</foreach>
+		</if>
+	</select>
+
+	<!-- 상품리스트 리스트출력&정렬 -->
+	<select id="getProductsByArea" resultType="product">
+		SELECT p.product_id, p.product_name, p.brand_name, p.price, p.stock,
+			(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1) AS img_url,
+			IFNULL(pc.click_count, 0) AS click_count  <!-- 클릭 수가 NULL일 경우 0으로 -->
+		FROM PRODUCT p
+		LEFT JOIN (
+			SELECT product_id, COUNT(product_click_id) AS click_count
+			FROM PRODUCT_CLICK
+			GROUP BY product_id
+		) pc ON p.product_id = pc.product_id
+		WHERE p.area = #{area}
+		<if test="categories != null and categories.size() > 0">
+			AND p.category IN
+			<foreach item="category" index="index"
+				collection="categories" open="(" separator="," close=")">
+				#{category}
+			</foreach>
+		</if>
+		<choose>
+			<when test="sortOption == '신상품'">
+				ORDER BY p.product_id DESC  <!-- 신상품(최신순) -->
+			</when>
+			<when test="sortOption == '가격낮은순'">
+				ORDER BY p.price ASC  <!-- 가격 낮은 순 정렬 -->
+			</when>
+			<when test="sortOption == '가격높은순'">
+				ORDER BY p.price DESC  <!-- 가격 높은 순 정렬 -->
+			</when>
+			<when test="sortOption == '인기상품순'">
+				ORDER BY click_count DESC  <!-- 인기순 정렬 -->
+			</when>
+		</choose>
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+
+	<!-- product, product_img 데이터 불러옴 -->
+	<!-- 상세페이지 -->
+	<select id="getProductDetailById" parameterType="int"
+		resultType="product">
+		SELECT * FROM product WHERE product_id = #{product_id}
+	</select>
+
+	<select id="getProductImagesById" parameterType="int"
+		resultType="String">
+		SELECT img_url FROM product_img WHERE product_id = #{product_id}
+	</select>
+
+	<!-- 클릭하면 클릭수 증가 -->
+	<insert id="insertProductClickLog" parameterType="int">
+		INSERT INTO PRODUCT_CLICK (product_id)
+		VALUES (#{product_id});
+	</insert>
+
+
+	<!-- 상세페이지 리뷰출력 
+	<select id="getReviewById" resultType="review"> </select>
+	
+	 -->
+
+	<!-- 추천상품 (해당 상품과 동일한 카테고리 상품 인기순으로 출력)-->
+	<select id="getRecommends" resultType="product">
+		SELECT p.product_id, p.product_name,
+			(SELECT img_url FROM PRODUCT_IMG i WHERE i.product_id = p.product_id LIMIT 1) AS img_url,
+			COUNT(pc.product_id) AS click_count
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_CLICK pc ON p.product_id = pc.product_id
+		GROUP BY p.product_id
+		ORDER BY click_count DESC
+		LIMIT 3;
+	</select>
+
+
+</mapper>
